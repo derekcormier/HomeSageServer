@@ -14,3 +14,14 @@ void initSerialAVR(int fpavr)
 
 	term.c_cflag = CS8 | CREAD;
 }
+
+void sendByteAVR(char data)
+{
+	// code
+}
+
+char getByteAVR()
+{
+	// code
+	return ;
+}

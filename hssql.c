@@ -4,7 +4,7 @@
 #include <my_global.h>
 #include <mysql.h>
 #include <stdio.h>
-
+#include <string.h>
 
 MYSQL* connectTableSQL()
 {
@@ -32,7 +32,17 @@ MYSQL* connectTableSQL()
 	return conn;
 }
 
-int insertDataSQL(int device, double voltage, double current)
+int insertDataSQL(MYSQL* conn, char device[], char voltage[], char current[])
 {
+	char SQLQuery[120] = "INSERT INTO datatest VALUES(NOW(), ";
+
+	strcat( SQLQuery, device);
+	strcat( SQLQuery, ", ");
+	strcat( SQLQuery, voltage);
+	strcat( SQLQuery, ", ");
+	strcat( SQLQuery, current);
+	strcat( SQLQuery, ");");
+
+	mysql_query(conn, SQLQuery);
 	return 0;
 }

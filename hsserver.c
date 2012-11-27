@@ -12,7 +12,7 @@ int main()
 	int fpavr;
 	//char buffer[30];
 
-	if(-1 == (fpavr = open("/dev/ttyACM0", O_RDWR | O_NOCTTY)))
+	if(-1 == (fpavr = open("/dev/ttyAMA0", O_RDWR | O_NOCTTY)))
 	{
 		printf("failed to open port to AVR. Terminating.\n");
 		//return -1;
@@ -24,11 +24,9 @@ int main()
 
 	initSerialAVR(fpavr);
 
-	//read(fpavr,buffer,sizeof(buffer));
+	write(fpavr, "D", 1);
 
-	//printf(buffer);
-
-	connectTableSQL();	
+	//connectTableSQL();	
 
 	return 0;
 }

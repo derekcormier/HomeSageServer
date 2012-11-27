@@ -6,6 +6,7 @@
 #define HSSQL_H_
 
 MYSQL* connectTableSQL(); 
+// POST: Connects to the HomeSage SQL table
 
 int insertDataSQL(int device, double voltage, double current);
 // PRE:  Device exists, voltage and current from device
