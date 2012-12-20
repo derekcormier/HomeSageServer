@@ -75,7 +75,7 @@ void getMeasAVR(MYSQL* conn, int fpavr)
 	insertDataSQL(conn, &device, &voltage, &current);	
 }
 
-void displayCir(int fpavr, char device)
+void displayCir(int fpavr, int device)
 {
 	device += 0xE0;
 	char* command = &device;

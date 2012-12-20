@@ -10,6 +10,7 @@
 #include "hssql.h"
 
 int initSerialAVR(int fpavr)
+	// POST: Initializes serial communication to and from the AVR
 {
 	struct termios term;		// create termios struct for serial
 
@@ -26,11 +27,13 @@ int initSerialAVR(int fpavr)
 }
 
 void sendByteAVR(int fpavr, char * data)
+	// POST: Send byte of data to AVR serial
 {
 	write(fpavr, (const void *) data, 1);		// send byte to the AVR
 }
 
 void* getByteAVR(int fpavr)	
+	// POST: Get byte of data from AVR serial
 {
 	char* data = NULL;					// char to store byte from AVR
 
@@ -39,6 +42,7 @@ void* getByteAVR(int fpavr)
 }
 
 void reqMeasAVR(int fpavr, char device)
+	// POST: Request measurement from device
 {
 	device += 0xA0;
 	char* command = &device;
@@ -46,6 +50,7 @@ void reqMeasAVR(int fpavr, char device)
 }
 
 void reqCStateAVR(int fpavr, char device)
+	// POST: Request circuit state
 {
 	device += 0xB0;
 	char* command = &device;
@@ -53,6 +58,7 @@ void reqCStateAVR(int fpavr, char device)
 }
 
 void togCStateAVR(int fpavr, char device)
+	// POST: Toggle circuit state
 {
 	device += 0xC0;
 	char* command = &device;
@@ -60,6 +66,7 @@ void togCStateAVR(int fpavr, char device)
 }
 
 void getMeasAVR(MYSQL* conn, int fpavr)
+	// POST: Gets measurements from the AVR
 {
 	char device[2];
 	char voltage[6];
@@ -76,6 +83,7 @@ void getMeasAVR(MYSQL* conn, int fpavr)
 }
 
 void displayCir(int fpavr, int device)
+	// POST: Tells the LCD which measurements to display
 {
 	device += 0xE0;
 	char* command = &device;
