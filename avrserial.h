@@ -20,6 +20,9 @@
 #define HS_CIRC0OFF					0xD8
 #define HS_CIRC1OFF					0xD9
 #define HS_CIRC2OFF					0xDA
+#define HS_SETDISP0					0xE0
+#define HS_SETDISP1					0xE1
+#define HS_SETDISP2					0xE2
 
 int initSerialAVR(int device);
 // POST: Initializes serial communication to and from the AVR
@@ -41,5 +44,8 @@ void togCStateAVR(int fpavr, char device);
 
 void getMeasAVR(MYSQL* conn, int fpavr);
 // POST: Gets measurements from the AVR
+
+void displayCir(int fpavr, int device);
+// POST: Tells the LCD which measurements to display
 
 #endif /* AVRSERIAL_H_ */

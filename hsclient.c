@@ -46,17 +46,15 @@ int main()
 		printf("Enter an option: ");	// Ask the user what they would like to do
 		scanf("%c", &userChoice);
 		
-		while(getc(stdin) != '\n');	// Empty stdin in case of extra characters
-
-		printf("\n\n");
+		while(getc(stdin) != '\n');	// Empty stdin in case of extra character
 
 		switch(userChoice)
 		{
 		case 'H':			// Display the help text
-			printf("List of Available Options:\n--------------------\n\n");
-			printf("O\tturn [O]ff circuit. You will be prompted as to which.\n");
-			printf("P\t[P]ower on circuit. You will be prompted as to which.\n");
-			printf("R\tgenerate [R]eport. You may specify circuit and dates.\n");
+			printf("List of Available Options:\n--------------------\n");
+			printf("D\tChange [D]isplayed circuit values.\n");
+			printf("O\tturn [O]ff circuit.\n");
+			printf("P\t[P]ower on circuit.\n");
 			break;
 
 		case 'O':			// Turn off a circuit
@@ -99,7 +97,7 @@ int main()
 				}
 				break;
 
-			case '2':		// Turn of circuit 2 (first
+			case '2':		// Turn of circuit 2 (second outlet)
 				tcflush(fpavr, TCIOFLUSH);		// Clear any data that may be in the lines/buffers
 				reqCStateAVR(fpavr, 2);			// Request the state of the selected circuit
 				
@@ -116,12 +114,12 @@ int main()
 				break;
 
 			default:
-				printf("Not a valid circuit number.");
+				printf("Not a valid circuit number.\n");
 				break;
 			}
 			break;
 
-		case 'P':
+		case 'P':	// Turn on a circuit
 			printf("Turn on which circuit? (0-2) : ");		// Ask user which circuit to turn on
 			scanf("%c", &userChoice);
 
@@ -178,16 +176,38 @@ int main()
 				break;
 
 			default:
-				printf("Not a valid circuit number.");
+				printf("Not a valid circuit number.\n");
 				break;
 			}
 			break;
 
-		case 'R':
-			printf("Generate Report.\n\n");
+		case 'D':	// Choose which circuit the LCD displays
+			printf("Which circuit would you like to display? (0-2): ");
+			scanf("%c", &userChoice);
+
+			while(getc(stdin) != '\n');			// Clear stdin
+
+				switch(userChoice)
+				{
+				case '0':
+					displayCir(fpavr,0);
+					break;
+
+				case '1':
+					displayCir(fpavr,1);
+					break;
+
+				case '2':
+					displayCir(fpavr,2);
+					break;
+			
+				default:
+					break;
+				}
+
 			break;
 
-		case 'Q':
+		case 'Q':	// Quit
 			printf("Cleaning up...\n\n");
 			pthread_cancel(ID);
 			close(fpavr);
@@ -212,7 +232,7 @@ void *getDataThread(void)
 			reqMeasAVR(fpavr, i);			// Request a measurement from the circuit
 			
 			getMeasAVR(conn,fpavr);
-			sleep(1880);						// Get a measurement every 3 minutes (9 minutes between each)
+			sleep(180);						// Get a measurement every 3 minutes (9 minutes between each)
 		}
 	}
 }

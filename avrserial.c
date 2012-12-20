@@ -73,4 +73,11 @@ void getMeasAVR(MYSQL* conn, int fpavr)
 	current[7] = '\0';
 
 	insertDataSQL(conn, &device, &voltage, &current);	
-}	
+}
+
+void displayCir(int fpavr, int device)
+{
+	device += 0xE0;
+	char* command = &device;
+	sendByteAVR(fpavr, command);
+}
